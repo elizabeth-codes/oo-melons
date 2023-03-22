@@ -1,4 +1,5 @@
 """Classes for melon orders."""
+import random
 
 
 class AbstractMelonOrder:
@@ -10,6 +11,20 @@ class AbstractMelonOrder:
         self.shipped = False
         self.order_type = order_type
         self.tax = tax
+
+    def get_base_price(self):
+        # weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+        # peak_times = [8, 9, 10, 11]
+        random_base_price = random.randrange(5, 9)
+        # if day in weekdays:
+        #     if time in peak_times:
+        #         random_base_price = random_base_price + 4
+
+        return random_base_price
+
+    current_base_price = get_base_price()
+
+    # print(current_base_price)
 
     def get_total(self):
         """Calculate price, including tax."""
@@ -87,3 +102,6 @@ class GovernmentMelonOrder(AbstractMelonOrder):
 # print(example_order.get_total())
 # example_order_1 = InternationalMelonOrder("USA", "water_melon", 10)
 # print(example_order_1.get_total())
+
+example_order = DomesticMelonOrder("melon", 5)
+print(example_order.get_base_price())
