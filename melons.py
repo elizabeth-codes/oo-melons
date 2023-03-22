@@ -2,6 +2,7 @@
 
 
 class AbstractMelonOrder:
+    INITIAL_BASE_PRICE = 5
 
     def __init__(self, species, qty, order_type, tax):
         self.species = species
@@ -12,10 +13,10 @@ class AbstractMelonOrder:
 
     def get_total(self):
         """Calculate price, including tax."""
-        base_price = 5
+        base_price = 5  # INITIAL_BASE_PRICE
         total = (1 + self.tax) * self.qty * base_price
         if self.species == "Christmas melon":
-            base_price == 1.5 * base_price
+            base_price = 1.5 * base_price
             total = (1 + self.tax) * self.qty * base_price
         if self.qty > 10 and self.order_type == "international":
             total = total + 3
@@ -61,7 +62,28 @@ class InternationalMelonOrder(AbstractMelonOrder):
         return self.country_code
 
 
-example_order = AbstractMelonOrder("melon", 5, "international", 0.17)
-print(example_order)
-
 # species, qty, order_type, tax
+
+
+class GovernmentMelonOrder(AbstractMelonOrder):
+    #A melon order placed by the government.
+    def __init__(self, species, qty):
+        self.passed_inspection = False
+
+        super().__init__(species, qty, "government", 0.00)
+
+    def mark_inspection(self):
+        self.passed_inspection = True
+
+
+# melons = []  # list of all 3 melon order types]
+#   for melon_order in melons:
+#       print(melon_order. get_total())
+# if melon_order.order_type == GovernmentMelonOrder.order_type:
+# melon_order.passed_inspection()
+
+# Testing/practicing
+# example_order = DomesticMelonOrder("melon", 5)
+# print(example_order.get_total())
+# example_order_1 = InternationalMelonOrder("USA", "water_melon", 10)
+# print(example_order_1.get_total())
